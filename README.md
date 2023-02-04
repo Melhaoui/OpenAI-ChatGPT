@@ -1,21 +1,25 @@
-# ChatGPT API used with Java & Spring
+# ChatGPT_API
 
-## How to get it running
-* Clone this GIT project.
-* Make sure it is a Maven project and Maven is executed to load dependencies.
-* Create an Account at https://openai.com & log in
-* Create API key at https://beta.openai.com/account/api-keys
-* Store the key in application.properties file in cloned project.
-* Start it as Spring Boot application.
-* For chatting with ChatGPT: http://localhost:8080/
-* For drawing images with DALL-E: http://localhost:8080/image
+## Introduction
+This project is a web application that using the ChatGPT OpenAI API to ask any questions and receive answers in an HTML page.The questions and answers are then stored in a CSV file.The project was built using Spring3,JDK17,and Maven. It was also integrated with Jenkins and Docker,and is available on GitHub.
 
-## Setup proxy
-If you need a proxy to communicate with Internet (ChatGPT API is in Internet), adapt ChatGptController.java like this:
-* Replace: private HttpClient client = HttpClient.newHttpClient();
-* with: private HttpClient client = HttpClient.newBuilder().proxy(ProxySelector.of(InetSocketAddress.createUnresolved("proxy.host.com", 8080))).build();
+## How to Use
 
-## More information
-* OpenAI API documentation: https://beta.openai.com/docs/api-reference/completions/create
-* Visit Elmar Brauch's German blog to read in general about Spring & Java:
-https://agile-coding.blogspot.com
+- Clone the repository to your local machine.
+- Build the Docker image using the provided Dockerfile.
+- Run the Docker container using the built image.
+- Open a web browser and go to http://localhost:8090.
+- Ask a question in the HTML page and receive the answer from the ChatGPT API.
+- The question and answer will be stored in the CSV file.
+
+## Technologies Used
+- Spring3
+- JDK17
+- Maven
+- ChatGPT OpenAI API
+- Docker
+- GitHub
+- Jenkins
+
+## Conclusion
+This project demonstrates the integration of various technologies to build a web application that utilizes the ChatGPT OpenAI API. The use of Docker and GitHub makes it easy to deploy and manage the application.
