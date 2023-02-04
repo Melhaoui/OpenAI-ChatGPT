@@ -10,28 +10,42 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.bsi.openai.chatgpt.CompletionRequest;
 
+@ActiveProfiles("test")
 public class OpenAiApiClientTest {
 	
 	@InjectMocks
 	OpenAiApiClient openAiAPIClient;
 	
+	@Value("${openai.api_url}")
+	private URI openaiApiUrlTest;
+	
+	@Value("${openai.api_key}")
+	private String openaiApiKeyTest;
+	
 	@Before
 	public void setUp() throws Exception {
 		openAiAPIClient = new OpenAiApiClient();
-		ReflectionTestUtils.setField(openAiAPIClient, "openaiApiUrl", URI.create("https://api.openai.com/v1/completions"));
-		ReflectionTestUtils.setField(openAiAPIClient, "openaiApiKey", "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");
+		System.out.println("******dddddddddddd**** :  "+openaiApiKeyTest);
+		ReflectionTestUtils.setField(openAiAPIClient, "openaiApiUrl", openaiApiUrlTest);
+		ReflectionTestUtils.setField(openAiAPIClient, "openaiApiKey", openaiApiKeyTest);
 
 	}
 
