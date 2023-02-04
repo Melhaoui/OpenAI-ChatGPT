@@ -19,8 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.bsi.openai.FormInputDTO;
 import de.bsi.openai.OpenAiApiClient;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import com.opencsv.CSVWriter;
 
 
@@ -32,13 +30,11 @@ public class ChatGptController {
 	@Autowired private ObjectMapper jsonMapper;
 	@Autowired private OpenAiApiClient client;
 	
-	@Autowired
-	ResourceLoader resourceLoader;
 	
 	private String chatWithGpt3(String message) throws Exception {
 		var completion = CompletionRequest.defaultWith(message);
 		var postBodyJson = jsonMapper.writeValueAsString(completion);
-		var responseBody = client.postToOpenAiApi(postBodyJson);
+		var responseBody = client.postToOpenAiApi(postBodyJson).body();
 		var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
 		String answer = completionResponse.firstAnswer().orElseThrow();
 		this.storageData(message, answer);

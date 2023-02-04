@@ -23,13 +23,14 @@ public class OpenAiApiClient {
 
 	private final HttpClient client = HttpClient.newHttpClient();
 
-	public String postToOpenAiApi(String requestBodyAsJson)
+	public HttpResponse<String> postToOpenAiApi(String requestBodyAsJson)
 			throws IOException, InterruptedException {
 		var request = HttpRequest.newBuilder().uri(openaiApiUrl)
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 				.header(HttpHeaders.AUTHORIZATION, "Bearer " + openaiApiKey)
 				.POST(BodyPublishers.ofString(requestBodyAsJson)).build();
-		return client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+		//var gg = client.send(request, HttpResponse.BodyHandlers.ofString()).statusCode();
+		return client.send(request, HttpResponse.BodyHandlers.ofString());
 	}
 
 }
