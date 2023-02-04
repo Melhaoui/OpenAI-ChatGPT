@@ -41,7 +41,7 @@ public class ChatGptController {
 		var responseBody = client.postToOpenAiApi(postBodyJson);
 		var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
 		String answer = completionResponse.firstAnswer().orElseThrow();
-		this.storageData(message, answer.replaceAll("\\r|\\n", ""));
+		this.storageData(message, answer);
 		return answer;
 	}
 	
@@ -53,7 +53,7 @@ public class ChatGptController {
 			CSVWriter writer = new CSVWriter(new FileWriter(dataFilePath, true));
 			
 		    //Create record
-			String data = question+";"+answer;
+			String data = question+";"+answer.replaceAll("\\r|\\n", "");
 		    String[] record = new String[]{data};
 
 		    //Write the record to file
